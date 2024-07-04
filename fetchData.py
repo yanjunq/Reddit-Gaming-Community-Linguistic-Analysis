@@ -12,9 +12,9 @@ reddit = praw.Reddit(
 def fetch_posts(subreddit, category, limit=1000):
     posts_data = []
     if category == 'top':
-        posts = subreddit.top('year', limit=limit)
+        posts = subreddit.top(time_filter='year', limit=limit)
     elif category == 'controversial':
-        posts = subreddit.controversial('year', limit=limit)
+        posts = subreddit.controversial(time_filter='year', limit=limit)
 
     for post in posts:
         post_time = datetime.fromtimestamp(post.created_utc, tz=timezone.utc)
@@ -61,4 +61,5 @@ controversial_df = pd.DataFrame(controversial_posts_data, columns=[
 ])
 controversial_df.to_csv('reddit_controversial_posts.csv', index=False)
 print("saved reddit_controversial_posts.csv")
+
 
